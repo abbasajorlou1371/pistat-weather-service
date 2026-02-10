@@ -87,8 +87,8 @@ class WeatherController extends Controller
         $request->validate([
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
-            'start_date' => 'required|date|before_or_equal:today|after_or_equal:' . now()->subDays(90)->format('Y-m-d'),
-            'end_date' => 'required|date|before_or_equal:today|after_or_equal:' . now()->subDays(90)->format('Y-m-d'),
+            'start_date' => 'required|date|before_or_equal:today|after_or_equal:' . now()->subDays(365)->format('Y-m-d'),
+            'end_date' => 'required|date|before_or_equal:today|after_or_equal:' . now()->subDays(365)->format('Y-m-d'),
             'min_temp' => 'nullable|numeric',
             'max_temp' => 'nullable|numeric',
         ]);
@@ -111,11 +111,11 @@ class WeatherController extends Controller
         $start = new \DateTime($startDate);
         $end = new \DateTime($endDate);
         $now = new \DateTime();
-        $ninetyDaysAgo = (clone $now)->modify('-90 days');
+        $ninetyDaysAgo = (clone $now)->modify('-365 days');
 
         if ($start < $ninetyDaysAgo || $end > $now) {
             return response()->json([
-                'error' => 'Date range must be within the last 90 days'
+                'error' => 'Date range must be within the last 365 days'
             ], 400);
         }
 
