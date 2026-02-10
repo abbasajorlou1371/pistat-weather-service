@@ -109,9 +109,9 @@ const filterMaxDate = computed(() => {
 });
 
 const filterMinDate = computed(() => {
-    const ninetyDaysAgo = new Date(today);
-    ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
-    const jMin = toJalaali(ninetyDaysAgo.getFullYear(), ninetyDaysAgo.getMonth() + 1, ninetyDaysAgo.getDate());
+    const yearAgo = new Date(today);
+    yearAgo.setDate(yearAgo.getDate() - 365);
+    const jMin = toJalaali(yearAgo.getFullYear(), yearAgo.getMonth() + 1, yearAgo.getDate());
     return `${jMin.jy}/${String(jMin.jm).padStart(2, '0')}/${String(jMin.jd).padStart(2, '0')}`;
 });
 
